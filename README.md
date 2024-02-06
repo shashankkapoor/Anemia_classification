@@ -54,6 +54,8 @@ $ curl -X POST -F image=@'image/palm_image/Anemic-264 (11).png' 'http://127.0.0.
    "success":true
 }
 
+[//]: <is this comment> (This is also a comment.)
+
 <!--
 {
   "predictions": [
