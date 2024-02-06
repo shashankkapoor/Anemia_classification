@@ -53,8 +53,9 @@ $ curl -X POST -F image=@'image/palm_image/Anemic-264 (11).png' 'http://127.0.0.
    "prob":[1.0,3.1477057071960246e-10],
    "success":true
 }
+```
 
-[//]: <> (This is also a comment.)
+
 
 <!--
 {
@@ -71,5 +72,4 @@ $ curl -X POST -F image=@'image/palm_image/Anemic-264 (11).png' 'http://127.0.0.
   "success": true
 }
 -->
-```
 
