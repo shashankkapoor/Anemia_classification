@@ -5,6 +5,7 @@ This repository contains the code for [*Building a simple Keras + deep learning 
 The method covered here is intended to be instructional. It is _not_ meant to be production-level and capable of scaling to heavy load.
 
 ## Pre-requisite
+
 ```sh
 $ pip install -r requirments.txt
 ```
@@ -27,11 +28,10 @@ $ git clone https://github.com/shashankkapoor/Anemia_classification.git
 
 Below you can see the image we wish to classify, Anemic or Non-Anemic :
 
-
 The Flask + Keras server can be started by running:
 
 ```sh
-$ python demo.py 
+$ python demo_palm.py
 Using TensorFlow backend.
  * Loading Keras model and Flask starting server...please wait until server has fully started
 ...
@@ -55,21 +55,18 @@ $ curl -X POST -F image=@'image/palm_image/Anemic-264 (11).png' 'http://127.0.0.
 }
 ```
 
-
-
 <!--
 {
   "predictions": [
     {
-      "label": "Anemic", 
+      "label": "Anemic",
       "probability": 0.9901360869407654
-    }, 
+    },
     {
-      "label": "Non-Anemic", 
+      "label": "Non-Anemic",
       "probability": 0.002396771451458335
     }
-  ], 
+  ],
   "success": true
 }
 -->
-
