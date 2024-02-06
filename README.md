@@ -49,9 +49,10 @@ Requests can be submitted via cURL:
 $ curl -X POST -F image=@'image/palm_image/Anemic-264 (11).png' 'http://127.0.0.1:5000/predict'
 
 
-{ "anemia":true,
-   "prob":[1.0,3.1477057071960246e-10],
-   "success":true
+{ 
+  "anemia" : true,
+  "prob" : [1.0, 3.1477057071960246e-10],
+  "success" : true,
 }
 ```
 
