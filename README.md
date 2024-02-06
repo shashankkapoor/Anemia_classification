@@ -45,7 +45,9 @@ You can now access the REST API via `http://127.0.0.1:5000`.
 Requests can be submitted via cURL:
 
 ```sh
-$ curl -X POST -F image=@Anemic-26.jpg 'http://localhost:5000/predict'
+
+$curl -X POST -F image=@'image/palm_image/Anemic-264 (11).png' 'http://127.0.0.1:5000/predict'
+
 {
   "predictions": [
     {
