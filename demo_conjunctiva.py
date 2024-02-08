@@ -125,4 +125,4 @@ if __name__ == "__main__":
     model = get_efficientnetv2b0()
     # model = get_convnexttiny()
     print("Model loaded with weights. ")
-    app.run()
+    app.run(host='0.0.0.0', debug=False, port=5001)
