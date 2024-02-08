@@ -32,21 +32,57 @@ def process_img(img) -> np.array:
 
 # get model
 def get_efficientnetv2b0():
-    
+
     cnn = keras.applications.EfficientNetV2B0(
-        include_top=False,
-        input_shape=(64, 64, 3)
+        include_top=False, input_shape=(64, 64, 3)
     )
     cnn.trainable = True
 
     model = keras.models.Sequential()
     model.add(cnn)
     model.add(keras.layers.GlobalAveragePooling2D())
-    model.add(keras.layers.Dense(1024, activation='relu'))
-    model.add(keras.layers.Dense(1024, activation='relu'))
-    model.add(keras.layers.Dense(2, activation='softmax'))
+    model.add(keras.layers.Dense(1024, activation="relu"))
+    model.add(keras.layers.Dense(1024, activation="relu"))
+    model.add(keras.layers.Dense(2, activation="softmax"))
 
-    model.load_weights("weights_conjunctiva/weights/efficientnetV2B0_model.h5", skip_mismatch=False, by_name=False, options=None)
+    model.load_weights(
+        "weights/weights_conjunctiva/efficientnetV2B0_model.h5",
+        skip_mismatch=False,
+        by_name=False,
+        options=None,
+    )
+    return model
+
+
+def get_convnexttiny():
+    cnn = keras.applications.ConvNeXtTiny(
+        model_name="convnext_tiny",
+        include_top=False,
+        include_preprocessing=True,
+        weights="imagenet",
+        input_shape=(64, 64, 3),
+    )
+    cnn.trainable = False
+    classifier = keras.models.Sequential(
+        [
+            keras.layers.GlobalAveragePooling2D(),
+            keras.layers.Dense(1024, activation="relu"),
+            keras.layers.BatchNormalization(),
+            keras.layers.Dropout(0.5),
+            keras.layers.Dense(2, activation="softmax"),
+        ],
+        name="classifier",
+    )
+    model = keras.models.Sequential(
+        [
+            cnn,
+            classifier,
+        ]
+    )
+    classifier.load_weights(
+        "weights/weights_conjunctiva/anemia-classifier-conjunctiva-ConvNeXtTiny.h5"
+    )
+
     return model
 
 
@@ -87,5 +123,6 @@ if __name__ == "__main__":
         )
     )
     model = get_efficientnetv2b0()
+    # model = get_convnexttiny()
     print("Model loaded with weights. ")
     app.run()
