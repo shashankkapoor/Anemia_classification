@@ -31,6 +31,37 @@ def process_img(img) -> np.array:
 
 
 # get model
+def get_efficientnetv2b0():
+    cnn = keras.applications.EfficientNetV2B0(
+        include_top=False,
+        weights="weights/weights_palm/efficientnetv2-b0_notop.h5",
+        input_tensor=None,
+        input_shape=(227, 227, 3),
+        include_preprocessing=True,
+    )
+    cnn.trainable = False
+    classifier = keras.models.Sequential(
+        [
+            keras.layers.GlobalAveragePooling2D(),
+            keras.layers.Dense(1024, activation="relu"),
+            # keras.layers.BatchNormalization(),
+            keras.layers.Dense(1024, activation="relu"),
+            # keras.layers.BatchNormalization(),
+            keras.layers.Dense(2, activation="softmax"),
+        ],
+        name="classifier",
+    )
+    model = keras.models.Sequential(
+        [
+            cnn,
+            classifier,
+        ],
+        name=cnn.name,
+    )
+    classifier.load_weights("weights/weights_palm/anemia-classifier-efficientNetB0.h5")
+    return model
+
+
 def get_convnexttiny():
     cnn = keras.applications.ConvNeXtTiny(
         model_name="convnext_tiny",
@@ -97,6 +128,7 @@ if __name__ == "__main__":
             "please wait until server has fully started"
         )
     )
-    model = get_convnexttiny()
+    # model = get_convnexttiny()
+    model = get_efficientnetv2b0()
     print("Model loaded with weights. ")
-    app.run(host='0.0.0.0', debug=False, port=5000)
+    app.run(host="0.0.0.0", debug=False, port=3000)
