@@ -64,36 +64,6 @@ def get_efficientnetv2b0():
     return model
 
 
-def get_convnexttiny():
-    cnn = keras.applications.ConvNeXtTiny(
-        model_name="convnext_tiny",
-        include_top=False,
-        include_preprocessing=True,
-        weights="weights/weights_palm/convnext_tiny_notop.h5",
-        input_shape=(227, 227, 3),
-    )
-    cnn.trainable = False
-    classifier = keras.models.Sequential(
-        [
-            keras.layers.GlobalAveragePooling2D(),
-            keras.layers.Dense(1024, activation="relu"),
-            keras.layers.Dense(1024, activation="relu"),
-            keras.layers.Dense(2, activation="softmax"),
-        ],
-        name="classifier",
-    )
-    model = keras.models.Sequential(
-        [
-            cnn,
-            classifier,
-        ],
-        name=cnn.name,
-    )
-    classifier.load_weights("weights/weights_palm/anemia-classifier-ConvNeXtTiny.h5")
-
-    return model
-
-
 @app.route("/predict", methods=["POST"])
 def predict():
     # initialize the data dictionary that will be returned from the view
