@@ -1,4 +1,5 @@
 import os
+from gevent.pywsgi import WSGIServer
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
@@ -131,4 +132,8 @@ if __name__ == "__main__":
     # model = get_convnexttiny()
     model = get_efficientnetv2b0()
     print("Model loaded with weights. ")
-    app.run(host="0.0.0.0", debug=False, port=5000)
+    # app.run(host="0.0.0.0", debug=False, port=5000)
+    print("Hosting WSGI Server...")
+    http_server = WSGIServer(('0.0.0.0', 5000), app)
+    print("Serving forever...")
+    http_server.serve_forever()
